@@ -15,6 +15,7 @@ FieldView.prototype.init = function() {
 
 FieldView.prototype.addEventListeners = function() {
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onHeroAdded');
+  asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onBallAdded');
   asafonov.messageBus.subscribe(asafonov.events.OBJECT_ADDED, this, 'onObjectAdded');
   window.addEventListener('keydown', this.onKeyDownProxy);
   window.addEventListener('click', this.onClickProxy);
@@ -24,6 +25,7 @@ FieldView.prototype.addEventListeners = function() {
 FieldView.prototype.initView = function() {
   this.element = document.getElementById('field');
   this.heroView = new HeroView();
+  this.ballView = new BallView();
   this.initSize();
 }
 
@@ -33,6 +35,7 @@ FieldView.prototype.initSize = function() {
   this.itemWidth = this.width / this.field.width;
   this.itemHeight = this.height / this.field.height;
   this.heroView.setSize(this.itemWidth, this.itemHeight);
+  this.ballView.setSize(this.itemWidth, this.itemHeight);
 }
 
 FieldView.prototype.onObjectAdded = function (eventData) {
@@ -50,6 +53,10 @@ FieldView.prototype.onHeroAdded = function (eventData) {
   this.element.appendChild(this.heroView.element);
 }
 
+FieldView.prototype.onBallAdded = function (eventData) {
+  this.element.appendChild(this.ballView.element);
+}
+
 FieldView.prototype.onKeyDown = function (e) {
   if (e.keyCode == 37) {
     this.field.getHero().moveLeft();
@@ -59,13 +66,9 @@ FieldView.prototype.onKeyDown = function (e) {
 }
 
 FieldView.prototype.onClick = function (e) {
-  if (e.clientY < document.documentElement.offsetHeight / 4) {
-    this.field.getHero().moveUp();
-  } else if (e.clientY > document.documentElement.offsetHeight * 3 / 4) {
-    this.field.getHero().moveDown();
-  } else if (e.clientX < document.documentElement.offsetWidth / 4) {
+  if (e.clientX < document.documentElement.offsetWidth / 2) {
     this.field.getHero().moveLeft();
-  } else if (e.clientX > document.documentElement.offsetWidth * 3 / 4) {
+  } else {
     this.field.getHero().moveRight();
   }
 }

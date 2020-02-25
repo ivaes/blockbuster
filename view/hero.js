@@ -26,8 +26,6 @@ HeroView.prototype.onHeroMoved = function (eventData) {
 }
 
 HeroView.prototype.onHeroAdded = function (eventData) {
-  console.log('heroAdded!!');
-  console.log(this.width);
   this.hero = eventData.field.getHero();
   this.setSize();
 }

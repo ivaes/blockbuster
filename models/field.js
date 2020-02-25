@@ -3,12 +3,20 @@ var Field = function() {
   this.height = 30;
   var _objects = [];
   var _hero = null;
+  var _ball = null;
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_MOVED, this, 'onHeroMoved');
+  asafonov.messageBus.subscribe(asafonov.events.BALL_MOVED, this, 'onBallMoved');
 
   this.setHero = function (hero) {
     _hero = hero;
     _hero.moveTo(this.width / 2 - (_hero.width + 1) / 2, this.height - 1);
     asafonov.messageBus.send(asafonov.events.FIELD_HERO_ADDED, {field: this});
+  }
+
+  this.setBall = function (ball) {
+    _ball = ball;
+    _ball.moveTo(this.width / 2 - 1, this.height - 2);
+    asafonov.messageBus.send(asafonov.BALL_ADDED, {field: this, ball: ball});
   }
 
   this.getHero = function() {
@@ -21,6 +29,10 @@ var Field = function() {
 
   this.onHeroMoved = function (eventData) {
     this.correctPosition(eventData.obj, eventData.fromPosition);
+  }
+
+  this.onBallMoved = function (eventData) {
+    this.correctBallPosition(eventData.obj, eventData.fromPosition);
   }
 
   this.positionToIndex = function (position) {
@@ -47,6 +59,18 @@ var Field = function() {
   this.correctPosition = function (obj, fromPosition) {
     if (obj.position.x < 0 || obj.position.x + obj.width > this.width) {
       obj.moveTo(fromPosition.x, fromPosition.y);
+    }
+  }
+
+  this.correctBallPosition = function (obj, fromPosition) {
+    if (obj.position.x < 0 || obj.position.x > this.width - 1) {
+      obj.position = fromPosition;
+      obj.changeDirection(Ball.HORIZONTAL_WALL);
+      obj.move();
+    } else if (obj.position.y < 0 || obj.position.y > this.height - 1) {
+      obj.position = fromPosition;
+      obj.changeDirection(Ball.VERTICAL_WALL);
+      obj.move();
     }
   }
 }
