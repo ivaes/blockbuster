@@ -13,7 +13,6 @@ BallView.prototype.setSize = function (width, height) {
 }
 
 BallView.prototype.onBallMoved = function (eventData) {
-  console.log(eventData);
   var position = eventData.obj.position;
   this.element.style.marginLeft = (this.width * position.x) + 'px';
   this.element.style.marginTop = (this.height * position.y) + 'px';

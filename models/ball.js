@@ -2,7 +2,7 @@ var Ball = function() {
   this.position = new Point(0, 0);
   this.direction = Ball.DIRECTION_UPRIGHT;
   this.angle = 1;
-  setInterval(this.move.bind(this), 100);
+  this.interval = setInterval(this.move.bind(this), 100);
 }
 
 Ball.DIRECTION_UPRIGHT = 1;
@@ -31,9 +31,13 @@ Ball.prototype.moveTo = function (x, y) {
 }
 
 Ball.prototype.changeDirection = function (wallType) {
-  if (wallType == Ball.HORIZONTAL_WALL) {
+  if (wallType == Ball.VERTICAL_WALL) {
     this.direction += this.direction % 2 == 1 ? 1 : -1;
-  } else if (wallType == Ball.VERTICAL_WALL) {
+  } else if (wallType == Ball.HORIZONTAL_WALL) {
     this.direction += this.direction < 3 ? 2 : -2;
   }
+}
+
+Ball.prototype.destroy = function() {
+  clearInterval(this.interval);
 }

@@ -63,14 +63,21 @@ var Field = function() {
   }
 
   this.correctBallPosition = function (obj, fromPosition) {
-    if (obj.position.x < 0 || obj.position.x > this.width - 1) {
+    if (obj.position.y == this.height - 1 && obj.position.x >= _hero.position.x && obj.position.x <= _hero.position.x + _hero.width - 1) {
       obj.position = fromPosition;
       obj.changeDirection(Ball.HORIZONTAL_WALL);
+      obj.angle = Math.abs(_hero.position.x - obj.position.x) == 0 || Math.abs(_hero.position.x - obj.position.x) == _hero.width - 1 ? 2 : 1;
       obj.move();
-    } else if (obj.position.y < 0 || obj.position.y > this.height - 1) {
+    } else if (obj.position.x < 0 || obj.position.x > this.width - 1) {
       obj.position = fromPosition;
       obj.changeDirection(Ball.VERTICAL_WALL);
       obj.move();
+    } else if (obj.position.y < 0) {
+      obj.position = fromPosition;
+      obj.changeDirection(Ball.HORIZONTAL_WALL);
+      obj.move();
+    } else if (obj.position.y > this.height - 1) {
+      obj.destroy();
     }
   }
 }
