@@ -7,7 +7,7 @@ var Field = function() {
 
   this.setHero = function (hero) {
     _hero = hero;
-    _hero.moveTo(19, 29);
+    _hero.moveTo(this.width / 2 - (_hero.width + 1) / 2, this.height - 1);
     asafonov.messageBus.send(asafonov.events.FIELD_HERO_ADDED, {field: this});
   }
 
@@ -45,7 +45,7 @@ var Field = function() {
   }
 
   this.correctPosition = function (obj, fromPosition) {
-    if (obj.position.x - (obj.width - 1) / 2 < 0 || obj.position.x + (obj.width - 1) / 2 > this.width - 1) {
+    if (obj.position.x < 0 || obj.position.x + obj.width > this.width) {
       obj.moveTo(fromPosition.x, fromPosition.y);
     }
   }

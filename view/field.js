@@ -22,9 +22,7 @@ FieldView.prototype.addEventListeners = function() {
 }
 
 FieldView.prototype.initView = function() {
-  this.element = document.createElement('div');
-  this.element.id = 'field';
-  document.body.appendChild(this.element);
+  this.element = document.getElementById('field');
   this.heroView = new HeroView();
   this.initSize();
 }
@@ -32,12 +30,8 @@ FieldView.prototype.initView = function() {
 FieldView.prototype.initSize = function() {
   this.width = document.documentElement.offsetWidth;
   this.height = document.documentElement.offsetHeight;
-  var minSize = Math.min(this.width, this.height);
-  this.itemWidth = minSize / 8;
-  this.itemHeight = minSize / 8;
-  this.element.style.width = this.field.width * this.itemWidth + 'px';
-  this.element.style.height = this.field.height * this.itemHeight + 'px';
-  this.element.style.backgroundSize = this.itemWidth + 'px ' + this.itemHeight + 'px';
+  this.itemWidth = this.width / this.field.width;
+  this.itemHeight = this.height / this.field.height;
   this.heroView.setSize(this.itemWidth, this.itemHeight);
 }
 
@@ -59,12 +53,8 @@ FieldView.prototype.onHeroAdded = function (eventData) {
 FieldView.prototype.onKeyDown = function (e) {
   if (e.keyCode == 37) {
     this.field.getHero().moveLeft();
-  } else if (e.keyCode == 38) {
-    this.field.getHero().moveUp();
   } else if (e.keyCode == 39) {
     this.field.getHero().moveRight();
-  } else if (e.keyCode == 40) {
-    this.field.getHero().moveDown();
   }
 }
 
