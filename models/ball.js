@@ -12,6 +12,7 @@ Ball.DIRECTION_DOWNLEFT = 4;
 
 Ball.HORIZONTAL_WALL = 1;
 Ball.VERTICAL_WALL = 2;
+Ball.CORNER_WALL = 3;
 
 Ball.prototype.moveByDelta = function (delta) {
   this.moveTo(this.position.x + delta.x, this.position.y + delta.y);
@@ -31,7 +32,17 @@ Ball.prototype.moveTo = function (x, y) {
 }
 
 Ball.prototype.changeDirection = function (wallType) {
-  if (wallType == Ball.VERTICAL_WALL) {
+  if (wallType == Ball.CORNER_WALL) {
+    if (this.direction == Ball.DIRECTION_UPRIGHT) {
+      this.direction = Ball.DIRECTION_DOWNLEFT;
+    } else if (this.direction == Ball.DIRECTION_UPLEFT) {
+      this.direction = Ball.DIRECTION_DOWNRIGHT;
+    } else if (this.direction == Ball.DIRECTION_DOWNRIGHT) {
+      this.direction = Ball.DIRECTION_UPLEFT;
+    } else {
+      this.direction = Ball.DIRECTION_UPRIGHT;
+    }
+  } else if (wallType == Ball.VERTICAL_WALL) {
     this.direction += this.direction % 2 == 1 ? 1 : -1;
   } else if (wallType == Ball.HORIZONTAL_WALL) {
     this.direction += this.direction < 3 ? 2 : -2;

@@ -64,9 +64,22 @@ var Field = function() {
 
   this.correctBallPosition = function (obj, fromPosition) {
     if (obj.position.y == this.height - 1 && obj.position.x >= _hero.position.x && obj.position.x <= _hero.position.x + _hero.width - 1) {
+      if (_hero.position.x == obj.position.x && obj.direction == Ball.DIRECTION_DOWNRIGHT) {
+        obj.angle = 2;
+      } else if (obj.position.x - _hero.position.x == _hero.width - 1 && obj.direction == Ball.DIRECTION_DOWNLEFT) {
+        obj.angle = 2;
+      } else {
+        obj.angle = 1;
+      }
+
+      var wallType = obj.angle == 2 ? Ball.CORNER_WALL : Ball.HORIZONTAL_WALL;
+
+      if ((obj.position.x - _hero.position.x == 1 && obj.direction == Ball.DIRECTION_DOWNRIGHT) || (obj.position.x - _hero.position.x == _hero.width - 2 && obj.direction == Ball.DIRECTION_DOWNLEFT)) {
+        wallType = Math.random() < 0.5 ? Ball.CORNER_WALL : wallType;
+      }
+
+      obj.changeDirection(wallType);
       obj.position = fromPosition;
-      obj.changeDirection(Ball.HORIZONTAL_WALL);
-      obj.angle = Math.abs(_hero.position.x - obj.position.x) == 0 || Math.abs(_hero.position.x - obj.position.x) == _hero.width - 1 ? 2 : 1;
       obj.move();
     } else if (obj.position.x < 0 || obj.position.x > this.width - 1) {
       obj.position = fromPosition;
