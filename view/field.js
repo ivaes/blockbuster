@@ -4,6 +4,7 @@ var FieldView = function() {
   this.itemWidth;
   this.itemHeight;
   this.field;
+  this.heroMoveInterval;
   this.onKeyDownProxy = this.onKeyDown.bind(this);
   this.onClickProxy = this.onClick.bind(this);
 }
@@ -59,16 +60,25 @@ FieldView.prototype.onBallAdded = function (eventData) {
 
 FieldView.prototype.onKeyDown = function (e) {
   if (e.keyCode == 37) {
-    this.field.getHero().moveLeft();
+    this.startHeroMoving('moveLeft');
   } else if (e.keyCode == 39) {
-    this.field.getHero().moveRight();
+    this.startHeroMoving('moveRight');
   }
 }
 
 FieldView.prototype.onClick = function (e) {
   if (e.clientX < document.documentElement.offsetWidth / 2) {
-    this.field.getHero().moveLeft();
+    this.startHeroMoving('moveLeft');
   } else {
-    this.field.getHero().moveRight();
+    this.startHeroMoving('moveRight');
   }
+}
+
+FieldView.prototype.startHeroMoving = function (direction) {
+  if (this.heroMoveInterval) {
+    clearInterval(this.heroMoveInterval);
+  }
+
+  var hero = this.field.getHero();
+  this.heroMoveInterval = setInterval(function() {hero[direction]();}, 60);
 }
