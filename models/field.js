@@ -52,8 +52,9 @@ var Field = function() {
   }
 
   this.addObject = function (type, position) {
-    _objects[this.positionToIndex(position)] = type;
-    asafonov.messageBus.send(asafonov.events.OBJECT_ADDED, {type: type, position: position});
+    var index = this.positionToIndex(position);
+    _objects[index] = type;
+    asafonov.messageBus.send(asafonov.events.OBJECT_ADDED, {type: type, position: position, index: index});
   }
 
   this.correctPosition = function (obj, fromPosition) {
@@ -62,7 +63,26 @@ var Field = function() {
     }
   }
 
+  this.checkCollision = function (obj, fromPosition) {
+    var i = this.positionToIndex(obj.position);
+
+    if (_objects[i] !== null && _objects[i] !== undefined && _objects[i] > 0) {
+      _objects[i]--;
+      asafonov.messageBus.send(asafonov.events.OBJECT_COLLISION, {index: i, type: _objects[i]});
+      obj.position = fromPosition;
+      var downPositionIndex = this.positionToIndex({x: obj.position.x, y: obj.position.y + 1});
+      obj.changeDirection(Ball[_objects[downPositionIndex] !== null && _objects[downPositionIndex] !== undefined && _objects[downPositionIndex] > 0 ? 'VERTICAL_WALL' : 'HORIZONTAL_WALL']);
+      return true;
+    }
+
+    return false;
+  }
+
   this.correctBallPosition = function (obj, fromPosition) {
+    if (this.checkCollision(obj, fromPosition)) {
+      return;
+    }
+
     if (obj.position.y == this.height - 1 && obj.position.x >= _hero.position.x && obj.position.x <= _hero.position.x + _hero.width - 1) {
       if (_hero.position.x == obj.position.x && obj.direction == Ball.DIRECTION_DOWNRIGHT) {
         obj.angle = 2;

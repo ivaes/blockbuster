@@ -18,6 +18,7 @@ FieldView.prototype.addEventListeners = function() {
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onHeroAdded');
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onBallAdded');
   asafonov.messageBus.subscribe(asafonov.events.OBJECT_ADDED, this, 'onObjectAdded');
+  asafonov.messageBus.subscribe(asafonov.events.OBJECT_COLLISION, this, 'onObjectCollision');
   window.addEventListener('keydown', this.onKeyDownProxy);
   window.addEventListener('click', this.onClickProxy);
   window.addEventListener('touchstart', this.onClickProxy);
@@ -40,14 +41,28 @@ FieldView.prototype.initSize = function() {
 }
 
 FieldView.prototype.onObjectAdded = function (eventData) {
+  if (eventData.type === null || eventData.type === undefined || eventData.type == 0) {
+    return;
+  }
+
   var element = document.createElement('div');
   element.style.marginTop = this.itemHeight * eventData.position.y + 'px';
   element.style.marginLeft = this.itemWidth * eventData.position.x + 'px';
   element.style.width = this.itemWidth + 'px';
   element.style.height = this.itemHeight + 'px';
   element.style.backgroundSize = this.itemWidth + 'px ' + this.itemHeight + 'px';
-  element.className = eventData.type;
+  element.className = 'object_' + eventData.type;
+  element.id = 'object_' + eventData.index;
   this.element.appendChild(element);
+}
+
+FieldView.prototype.onObjectCollision = function (eventData) {
+  var element = document.getElementById('object_' + eventData.index);
+  element.className = 'object_' + eventData.type;
+
+  if (! (eventData.type > 0)) {
+    this.element.removeChild(element);
+  }
 }
 
 FieldView.prototype.onHeroAdded = function (eventData) {
