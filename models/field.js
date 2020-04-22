@@ -2,6 +2,7 @@ var Field = function() {
   this.width = 40;
   this.height = 30;
   var _objects = [];
+  var _objectsCount = 0;
   var _hero = null;
   var _ball = null;
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_MOVED, this, 'onHeroMoved');
@@ -55,6 +56,10 @@ var Field = function() {
     var index = this.positionToIndex(position);
     _objects[index] = type;
     asafonov.messageBus.send(asafonov.events.OBJECT_ADDED, {type: type, position: position, index: index});
+
+    if (type !== null && type !== undefined && type > 0) {
+      ++_objectsCount;
+    }
   }
 
   this.correctPosition = function (obj, fromPosition) {
@@ -67,11 +72,20 @@ var Field = function() {
     var i = this.positionToIndex(obj.position);
 
     if (_objects[i] !== null && _objects[i] !== undefined && _objects[i] > 0) {
-      _objects[i]--;
+      --_objects[i];
       asafonov.messageBus.send(asafonov.events.OBJECT_COLLISION, {index: i, type: _objects[i]});
       obj.position = fromPosition;
       var downPositionIndex = this.positionToIndex({x: obj.position.x, y: obj.position.y + 1});
       obj.changeDirection(Ball[_objects[downPositionIndex] !== null && _objects[downPositionIndex] !== undefined && _objects[downPositionIndex] > 0 ? 'VERTICAL_WALL' : 'HORIZONTAL_WALL']);
+
+      if (_objects[i] == 0) {
+        --_objectsCount;
+
+        if (_objectsCount <= 0) {
+          asafonov.messageBus.send(asafonov.events.GAME_WON, {});
+        }
+      }
+
       return true;
     }
 

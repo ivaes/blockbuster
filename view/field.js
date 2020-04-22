@@ -19,6 +19,8 @@ FieldView.prototype.addEventListeners = function() {
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onBallAdded');
   asafonov.messageBus.subscribe(asafonov.events.OBJECT_ADDED, this, 'onObjectAdded');
   asafonov.messageBus.subscribe(asafonov.events.OBJECT_COLLISION, this, 'onObjectCollision');
+  asafonov.messageBus.subscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
+  asafonov.messageBus.subscribe(asafonov.events.GAME_WON, this, 'onGameWon');
   window.addEventListener('keydown', this.onKeyDownProxy);
   window.addEventListener('click', this.onClickProxy);
   window.addEventListener('touchstart', this.onClickProxy);
@@ -38,6 +40,20 @@ FieldView.prototype.initSize = function() {
   this.itemHeight = this.height / this.field.height;
   this.heroView.setSize(this.itemWidth, this.itemHeight);
   this.ballView.setSize(this.itemWidth, this.itemHeight);
+}
+
+FieldView.prototype.onGameLost = function() {
+  this.alert("You lost");
+}
+
+FieldView.prototype.onGameWon = function() {
+  this.alert("You won");
+}
+
+FieldView.prototype.alert = function (msg, type) {
+  alert(msg);
+  this.destroy();
+  window.location.reload();
 }
 
 FieldView.prototype.onObjectAdded = function (eventData) {
@@ -96,4 +112,16 @@ FieldView.prototype.startHeroMoving = function (direction) {
 
   var hero = this.field.getHero();
   this.heroMoveInterval = setInterval(function() {hero[direction]();}, 60);
+}
+
+FieldView.prototype.destroy = function() {
+  asafonov.messageBus.unsubscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onHeroAdded');
+  asafonov.messageBus.unsubscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onBallAdded');
+  asafonov.messageBus.unsubscribe(asafonov.events.OBJECT_ADDED, this, 'onObjectAdded');
+  asafonov.messageBus.unsubscribe(asafonov.events.OBJECT_COLLISION, this, 'onObjectCollision');
+  asafonov.messageBus.unsubscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
+  asafonov.messageBus.unsubscribe(asafonov.events.GAME_WON, this, 'onGameWon');
+  window.removeEventListener('keydown', this.onKeyDownProxy);
+  window.removeEventListener('click', this.onClickProxy);
+  window.removeEventListener('touchstart', this.onClickProxy);
 }

@@ -51,4 +51,5 @@ Ball.prototype.changeDirection = function (wallType) {
 
 Ball.prototype.destroy = function() {
   clearInterval(this.interval);
+  asafonov.messageBus.send(asafonov.events.GAME_LOST, {});
 }
