@@ -68,29 +68,37 @@ var Field = function() {
     }
   }
 
-  this.checkCollision = function (obj, fromPosition) {
-    var i = this.positionToIndex(obj.position);
+  this.checkCollision = function (obj) {
+    var affectedPositions = [
+      this.positionToIndex(obj.position),
+      this.positionToIndex({x: obj.position.x - 1, y: obj.position.y}),
+      this.positionToIndex({x: obj.position.x + 1, y: obj.position.y}),
+      this.positionToIndex({x: obj.position.x - 1, y: obj.position.y + 1}),
+      this.positionToIndex({x: obj.position.x, y: obj.position.y + 1}),
+      this.positionToIndex({x: obj.position.x + 1, y: obj.position.y + 1}),
+      this.positionToIndex({x: obj.position.x - 1, y: obj.position.y - 1}),
+      this.positionToIndex({x: obj.position.x, y: obj.position.y - 1}),
+      this.positionToIndex({x: obj.position.x + 1, y: obj.position.y - 1})
+    ];
+    var collision = false;
 
-    if (_objects[i] !== null && _objects[i] !== undefined && _objects[i] > 0) {
-      this.processObjectCollision(i);
-      this.processObjectCollision(this.positionToIndex({x: obj.position.x - 1, y: obj.position.y}));
-      this.processObjectCollision(this.positionToIndex({x: obj.position.x + 1, y: obj.position.y}));
-      this.processObjectCollision(this.positionToIndex({x: obj.position.x - 1, y: obj.position.y - 1}));
-      this.processObjectCollision(this.positionToIndex({x: obj.position.x, y: obj.position.y - 1}));
-      this.processObjectCollision(this.positionToIndex({x: obj.position.x + 1, y: obj.position.y - 1}));
+    for (var i = 0; i < affectedPositions.length; ++i) {
+      if (_objects[affectedPositions[i]] !== null && _objects[affectedPositions[i]] !== undefined && _objects[affectedPositions[i]] > 0) {
+        this.processObjectCollision(affectedPositions[i]);
+        collision = true;
+      }
+    }
 
-      obj.position = fromPosition;
+    if (collision) {
       var downPositionIndex = this.positionToIndex({x: obj.position.x, y: obj.position.y + 1});
       obj.changeDirection(Ball[_objects[downPositionIndex] !== null && _objects[downPositionIndex] !== undefined && _objects[downPositionIndex] > 0 ? 'VERTICAL_WALL' : 'HORIZONTAL_WALL']);
 
       if (_objectsCount <= 0) {
-	asafonov.messageBus.send(asafonov.events.GAME_WON, {});
+        asafonov.messageBus.send(asafonov.events.GAME_WON, {});
       }
-
-      return true;
     }
 
-    return false;
+    return collision;
   }
 
   this.processObjectCollision = function (i) {
@@ -105,7 +113,7 @@ var Field = function() {
   }
 
   this.correctBallPosition = function (obj, fromPosition) {
-    if (this.checkCollision(obj, fromPosition)) {
+    if (this.checkCollision(obj)) {
       return;
     }
 
@@ -116,8 +124,8 @@ var Field = function() {
       || (obj.position.x - _hero.position.x == _hero.width - 1 && obj.direction == Ball.DIRECTION_DOWNLEFT)) {
         obj.angle = 2;
         wallType = Ball.CORNER_WALL;
-      } else if (obj.angle == 2 && obj.position.x - _hero.position.x != _hero.width / 2 - 1 / 2) {
-        obj.angle = 2;
+      } else if (obj.angle == 2) {
+        obj.angle = Math.random() < 0.2 ? 1 : 2;
       } else {
         obj.angle = 1;
       }
