@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   view.field.setHero(new Subject());
   var ball = new Ball();
   view.field.setBall(ball);
-  var objectMap = [1, 1, 2, 1, 1, 2];
-  view.field.setObjectMap(objectMap);
+  var levels = new Levels(view.field);
+  view.field.setObjectMap(levels.getRandom());
 });
