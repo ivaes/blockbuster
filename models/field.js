@@ -81,6 +81,8 @@ var Field = function() {
       this.positionToIndex({x: obj.position.x + 1, y: obj.position.y - 1})
     ];
     var collision = false;
+    var isVerticalWall = (_objects[affectedPositions[1]] > 0 && (obj.direction == Ball.DIRECTION_UPLEFT || obj.direction == Ball.DIRECTION_DOWNLEFT))
+      || (_objects[affectedPositions[2]] > 0 && (obj.direction == Ball.DIRECTION_UPRIGHT || obj.direction == Ball.DIRECTION_DOWNRIGHT));
 
     for (var i = 0; i < affectedPositions.length; ++i) {
       if (_objects[affectedPositions[i]] !== null && _objects[affectedPositions[i]] !== undefined && _objects[affectedPositions[i]] > 0) {
@@ -91,7 +93,7 @@ var Field = function() {
 
     if (collision) {
       var downPositionIndex = this.positionToIndex({x: obj.position.x, y: obj.position.y + 1});
-      obj.changeDirection(Ball[_objects[downPositionIndex] !== null && _objects[downPositionIndex] !== undefined && _objects[downPositionIndex] > 0 ? 'VERTICAL_WALL' : 'HORIZONTAL_WALL']);
+      obj.changeDirection(Ball[isVerticalWall ? 'VERTICAL_WALL' : 'HORIZONTAL_WALL']);
 
       if (_objectsCount <= 0) {
         asafonov.messageBus.send(asafonov.events.GAME_WON, {});
