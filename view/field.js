@@ -22,7 +22,6 @@ FieldView.prototype.addEventListeners = function() {
   asafonov.messageBus.subscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
   asafonov.messageBus.subscribe(asafonov.events.GAME_WON, this, 'onGameWon');
   window.addEventListener('keydown', this.onKeyDownProxy);
-  window.addEventListener('click', this.onClickProxy);
   window.addEventListener('touchstart', this.onClickProxy);
 }
 
@@ -98,7 +97,10 @@ FieldView.prototype.onKeyDown = function (e) {
 }
 
 FieldView.prototype.onClick = function (e) {
-  if (e.clientX < document.documentElement.offsetWidth / 2) {
+  e.preventDefault();
+  var x = e.touches[0].clientX;
+
+  if (x < document.documentElement.offsetWidth / 2) {
     this.startHeroMoving('moveLeft');
   } else {
     this.startHeroMoving('moveRight');
@@ -122,6 +124,5 @@ FieldView.prototype.destroy = function() {
   asafonov.messageBus.unsubscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
   asafonov.messageBus.unsubscribe(asafonov.events.GAME_WON, this, 'onGameWon');
   window.removeEventListener('keydown', this.onKeyDownProxy);
-  window.removeEventListener('click', this.onClickProxy);
   window.removeEventListener('touchstart', this.onClickProxy);
 }
