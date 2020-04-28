@@ -128,6 +128,8 @@ var Field = function() {
         wallType = Ball.CORNER_WALL;
       } else if (obj.angle == 2) {
         obj.angle = Math.random() < 0.2 ? 1 : 2;
+      } else if (obj.angle < 2) {
+        obj.angle = Math.random() < 1.2 - obj.angle ? 1/2 : 1;
       } else {
         obj.angle = 1;
       }
