@@ -6,7 +6,7 @@ var FieldView = function() {
   this.field;
   this.heroMoveInterval;
   this.onKeyDownProxy = this.onKeyDown.bind(this);
-  this.onClickProxy = this.onClick.bind(this);
+  this.onTouchProxy = this.onTouch.bind(this);
 }
 
 FieldView.prototype.init = function() {
@@ -22,7 +22,7 @@ FieldView.prototype.addEventListeners = function() {
   asafonov.messageBus.subscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
   asafonov.messageBus.subscribe(asafonov.events.GAME_WON, this, 'onGameWon');
   window.addEventListener('keydown', this.onKeyDownProxy);
-  window.addEventListener('touchstart', this.onClickProxy);
+  window.addEventListener('touchstart', this.onTouchProxy);
 }
 
 FieldView.prototype.initView = function() {
@@ -96,7 +96,7 @@ FieldView.prototype.onKeyDown = function (e) {
   }
 }
 
-FieldView.prototype.onClick = function (e) {
+FieldView.prototype.onTouch = function (e) {
   e.preventDefault();
   var x = e.touches[0].clientX;
 
@@ -124,5 +124,5 @@ FieldView.prototype.destroy = function() {
   asafonov.messageBus.unsubscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
   asafonov.messageBus.unsubscribe(asafonov.events.GAME_WON, this, 'onGameWon');
   window.removeEventListener('keydown', this.onKeyDownProxy);
-  window.removeEventListener('touchstart', this.onClickProxy);
+  window.removeEventListener('touchstart', this.onTouchProxy);
 }
