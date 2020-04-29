@@ -100,7 +100,7 @@ FieldView.prototype.onKeyDown = function (e) {
 
 FieldView.prototype.onTouch = function (e) {
   e.preventDefault();
-  var x = e.touches[0].clientX;
+  var x = e.touches[e.touches.length - 1].clientX;
 
   if (x < document.documentElement.offsetWidth / 2) {
     this.startHeroMoving('moveLeft');
