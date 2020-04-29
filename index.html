@@ -19,6 +19,29 @@ div {
   height: 100%;
   overflow: hidden;
 }
+#start {
+  width: 60%;
+  height: 60%;
+  background-color: #660000;
+  border: 1px solid black;
+  box-shadow: 10px 10px 10px black;
+  border-radius: 12px;
+  opacity: 0.9;
+  margin-left: 20%;
+  margin-top: 5%;
+  padding: 12px;
+  color: white;
+  text-align: center;
+}
+#start button {
+  font-size: 24px;
+  background-color: #006600;
+  border: 1px solid black;
+  box-shadow: 10px 10px 10px black;
+  border-radius: 12px;
+  padding: 12px;
+  color: white;  
+}
 #hero {
   background-color: #006600;
   border: 1px solid black;
@@ -51,5 +74,8 @@ div {
 </head>
 <body>
 <div id="field"></div>
+<div id="start">
+  <button onclick="start()">Start</button>
+<div>
 <script src="game.js"></script>
 </body>
