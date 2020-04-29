@@ -2,7 +2,8 @@ var Ball = function() {
   this.position = new Point(0, 0);
   this.direction = Math.random() > 0.5 ? Ball.DIRECTION_UPRIGHT : Ball.DIRECTION_UPLEFT;
   this.angle = 1;
-  this.interval = setInterval(this.move.bind(this), 100);
+  this.speed = 1/2;
+  this.interval = setInterval(this.move.bind(this), 50);
 }
 
 Ball.DIRECTION_UPRIGHT = 1;
@@ -21,7 +22,7 @@ Ball.prototype.moveByDelta = function (delta) {
 Ball.prototype.move = function() {
   var x = this.direction == Ball.DIRECTION_UPRIGHT || this.direction == Ball.DIRECTION_DOWNRIGHT ? 1 : -1;
   var y = this.direction == Ball.DIRECTION_UPRIGHT || this.direction == Ball.DIRECTION_UPLEFT ? -1 : 1;
-  this.moveByDelta(new Point(x * this.angle, y));
+  this.moveByDelta(new Point(x * this.angle * this.speed, y * this.speed));
 }
 
 Ball.prototype.moveTo = function (x, y) {

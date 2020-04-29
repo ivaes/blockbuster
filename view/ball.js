@@ -9,7 +9,6 @@ BallView.prototype.setSize = function (width, height) {
   this.height = height || this.height;
   this.element.style.width = this.width + 'px';
   this.element.style.height = this.height + 'px';
-  this.element.style.backgroundSize = this.width + 'px ' + this.height + 'px';
 }
 
 BallView.prototype.onBallMoved = function (eventData) {

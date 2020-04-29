@@ -37,7 +37,7 @@ var Field = function() {
   }
 
   this.positionToIndex = function (position) {
-    return position.y * this.width + position.x;
+    return parseInt(position.y, 10) * this.width + parseInt(position.x, 10);
   }
 
   this.indexToPosition = function (index) {

@@ -63,17 +63,17 @@ FieldView.prototype.onObjectAdded = function (eventData) {
   var element = document.createElement('div');
   element.style.marginTop = this.itemHeight * eventData.position.y + 'px';
   element.style.marginLeft = this.itemWidth * eventData.position.x + 'px';
-  element.style.width = this.itemWidth + 'px';
-  element.style.height = this.itemHeight + 'px';
+  element.style.width = (this.itemWidth - 2) + 'px';
+  element.style.height = (this.itemHeight - 2) + 'px';
   element.style.backgroundSize = this.itemWidth + 'px ' + this.itemHeight + 'px';
-  element.className = 'object_' + eventData.type;
+  element.className = 'object object_' + eventData.type;
   element.id = 'object_' + eventData.index;
   this.element.appendChild(element);
 }
 
 FieldView.prototype.onObjectCollision = function (eventData) {
   var element = document.getElementById('object_' + eventData.index);
-  element.className = 'object_' + eventData.type;
+  element.className = 'object object_' + eventData.type;
 
   if (! (eventData.type > 0)) {
     this.element.removeChild(element);

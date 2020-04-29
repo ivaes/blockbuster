@@ -10,7 +10,6 @@ body {
 }
 div {
   position: absolute;
-  box-shadow: 10px 10px 10px black;
 }
 #field {
   background-image: url(skin/background.jpg);
@@ -20,10 +19,23 @@ div {
   height: 100%;
 }
 #hero {
-  background-color: red;
+  background-color: #006600;
+  border: 1px solid black;
+  box-shadow: 10px 10px 10px black;
+  border-radius: 12px;
+  opacity: 0.9;
 }
 #ball {
-  background-color: green;
+  background-image: url(skin/ball.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.object {
+  border: 1px solid black;
+  box-shadow: 10px 10px 10px black;
+  border-radius: 3px;
+  opacity: 0.8;
 }
 .object_0 {
   display: none;
@@ -32,7 +44,7 @@ div {
   background-color: blue;
 }
 .object_2 {
-  background-color: yellow;
+  background-color: red;
 }
 </style>
 </head>
