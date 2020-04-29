@@ -5,6 +5,7 @@ var FieldView = function() {
   this.itemHeight;
   this.field;
   this.heroMoveInterval;
+  this.objectCollisionSound = new Audio('sound/explosion.mp3');
   this.onKeyDownProxy = this.onKeyDown.bind(this);
   this.onTouchProxy = this.onTouch.bind(this);
 }
@@ -76,6 +77,7 @@ FieldView.prototype.onObjectCollision = function (eventData) {
   element.className = 'object object_' + eventData.type;
 
   if (! (eventData.type > 0)) {
+    this.objectCollisionSound.play();
     this.element.removeChild(element);
   }
 }

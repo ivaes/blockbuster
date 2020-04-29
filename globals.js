@@ -7,6 +7,7 @@ window.asafonov.events = {
   OBJECT_COLLISION: 'objectCollision',
   BALL_ADDED: 'ballAdded',
   BALL_MOVED: 'ballMoved',
+  BALL_CHANGED_DIRECTION: 'ballChangedDirection',
   GAME_WON: 'gameWon',
   GAME_LOST: 'gameLost'
 };

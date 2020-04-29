@@ -48,6 +48,8 @@ Ball.prototype.changeDirection = function (wallType) {
   } else if (wallType == Ball.HORIZONTAL_WALL) {
     this.direction += this.direction < 3 ? 2 : -2;
   }
+
+  asafonov.messageBus.send(asafonov.events.BALL_CHANGED_DIRECTION, {});
 }
 
 Ball.prototype.destroy = function() {
