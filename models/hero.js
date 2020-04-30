@@ -1,6 +1,6 @@
 var Subject = function() {
   this.position = new Point(0, 0);
-  this.width = 5;
+  this.width = asafonov.settings.heroWidth;
 }
 
 Subject.prototype.moveLeft = function() {
@@ -28,4 +28,9 @@ Subject.prototype.moveTo = function (x, y) {
   this.position.x = x;
   this.position.y = y;
   asafonov.messageBus.send(asafonov.events.FIELD_HERO_MOVED, {obj: this, fromPosition: position});
+}
+
+Subject.prototype.setWidth = function (width) {
+  this.width = width;
+  asafonov.messageBus.send(asafonov.events.HERO_WIDTH_CHANGED, {obj: this});
 }

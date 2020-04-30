@@ -94,6 +94,7 @@ var Field = function() {
     if (collision) {
       var downPositionIndex = this.positionToIndex({x: obj.position.x, y: obj.position.y + 1});
       obj.changeDirection(Ball[isVerticalWall ? 'VERTICAL_WALL' : 'HORIZONTAL_WALL']);
+      this.applyBonuses(obj);
 
       if (_objectsCount <= 0) {
         asafonov.messageBus.send(asafonov.events.GAME_WON, {});
@@ -101,6 +102,14 @@ var Field = function() {
     }
 
     return collision;
+  }
+
+  this.applyBonuses = function (obj) {
+    if (Math.random() < 0.2) {
+      var index = parseInt(asafonov.bonuses.length * Math.random(), 10);
+      var bonus = new asafonov.bonuses[index](_hero, obj);
+      bonus.apply();
+    }
   }
 
   this.processObjectCollision = function (i) {

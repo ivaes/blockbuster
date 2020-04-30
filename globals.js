@@ -3,6 +3,7 @@ window.asafonov.messageBus = new MessageBus();
 window.asafonov.events = {
   FIELD_HERO_ADDED: 'fieldHeroAdded',
   FIELD_HERO_MOVED: 'fieldHeroMoved',
+  HERO_WIDTH_CHANGED: 'heroWidthChanged',
   OBJECT_ADDED: 'objectAdded',
   OBJECT_COLLISION: 'objectCollision',
   BALL_ADDED: 'ballAdded',
@@ -11,6 +12,8 @@ window.asafonov.events = {
   GAME_WON: 'gameWon',
   GAME_LOST: 'gameLost'
 };
+window.asafonov.bonuses = [HeroWidthBonus],
 window.asafonov.settings = {
-  sfx: false
+  sfx: false,
+  heroWidth: 5
 }

@@ -4,6 +4,7 @@ var HeroView = function() {
   this.hero = null;
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onHeroAdded');
   asafonov.messageBus.subscribe(asafonov.events.FIELD_HERO_MOVED, this, 'onHeroMoved');
+  asafonov.messageBus.subscribe(asafonov.events.HERO_WIDTH_CHANGED, this, 'onHeroWidthChanged');
 }
 
 HeroView.prototype.setSize = function (width, height) {
@@ -14,6 +15,10 @@ HeroView.prototype.setSize = function (width, height) {
     return ;
   }
 
+  this.updateWidth();
+}
+
+HeroView.prototype.updateWidth = function() {
   this.element.style.width = this.hero.width * this.width + 'px';
   this.element.style.height = this.height + 'px';
   this.element.style.backgroundSize = this.hero.width * this.width + 'px ' + this.height + 'px';
@@ -28,4 +33,10 @@ HeroView.prototype.onHeroMoved = function (eventData) {
 HeroView.prototype.onHeroAdded = function (eventData) {
   this.hero = eventData.field.getHero();
   this.setSize();
+}
+
+HeroView.prototype.onHeroWidthChanged = function (eventData) {
+  if (this.hero === eventData.obj) {
+    this.updateWidth();
+  }
 }
