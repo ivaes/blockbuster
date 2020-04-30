@@ -11,3 +11,6 @@ window.asafonov.events = {
   GAME_WON: 'gameWon',
   GAME_LOST: 'gameLost'
 };
+window.asafonov.settings = {
+  sfx: false
+}

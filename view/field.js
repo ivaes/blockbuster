@@ -5,9 +5,9 @@ var FieldView = function() {
   this.itemHeight;
   this.field;
   this.heroMoveInterval;
-  this.objectCollisionSound = new Audio('sound/explosion.mp3');
   this.onKeyDownProxy = this.onKeyDown.bind(this);
   this.onTouchProxy = this.onTouch.bind(this);
+  this.objectCollisionSound = new Audio('sound/explosion.mp3');
 }
 
 FieldView.prototype.init = function() {
@@ -29,7 +29,6 @@ FieldView.prototype.addEventListeners = function() {
 FieldView.prototype.initView = function() {
   this.element = document.getElementById('field');
   this.heroView = new HeroView();
-  this.ballView = new BallView();
   this.initSize();
 }
 
@@ -39,7 +38,6 @@ FieldView.prototype.initSize = function() {
   this.itemWidth = this.width / this.field.width;
   this.itemHeight = this.height / this.field.height;
   this.heroView.setSize(this.itemWidth, this.itemHeight);
-  this.ballView.setSize(this.itemWidth, this.itemHeight);
 }
 
 FieldView.prototype.onGameLost = function() {
@@ -77,7 +75,7 @@ FieldView.prototype.onObjectCollision = function (eventData) {
   element.className = 'object object_' + eventData.type;
 
   if (! (eventData.type > 0)) {
-    this.objectCollisionSound.play();
+    asafonov.settings.sfx && this.objectCollisionSound.play();
     this.element.removeChild(element);
   }
 }
@@ -87,6 +85,8 @@ FieldView.prototype.onHeroAdded = function (eventData) {
 }
 
 FieldView.prototype.onBallAdded = function (eventData) {
+  this.ballView = new BallView();
+  this.ballView.setSize(this.itemWidth, this.itemHeight);
   this.element.appendChild(this.ballView.element);
 }
 

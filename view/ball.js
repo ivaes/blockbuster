@@ -1,9 +1,12 @@
 var BallView = function() {
   this.element = document.createElement('div');
   this.element.id = 'ball';
-  this.ballChangedDirectionSound = new Audio('sound/ball.mp3');
   asafonov.messageBus.subscribe(asafonov.events.BALL_MOVED, this, 'onBallMoved');
-  asafonov.messageBus.subscribe(asafonov.events.BALL_CHANGED_DIRECTION, this, 'onBallChangedDirection');
+
+  if (asafonov.settings.sfx) {
+    this.ballChangedDirectionSound = new Audio('sound/ball.mp3');
+    asafonov.messageBus.subscribe(asafonov.events.BALL_CHANGED_DIRECTION, this, 'onBallChangedDirection');
+  }
 }
 
 BallView.prototype.setSize = function (width, height) {

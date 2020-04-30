@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function start() {
   document.getElementById('start').style.display = 'none';
-  (new Audio('sound/explosion.mp3')).play();
+  asafonov.settings.sfx = document.querySelector('#start input[name=sfx]').checked;
+  asafonov.settings.sfx && (new Audio('sound/explosion.mp3')).play();
   var ball = new Ball();
   window.view.field.setBall(ball);
   window.view.field.setHero(new Subject());
