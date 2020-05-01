@@ -29,7 +29,7 @@ var Field = function() {
   }
 
   this.onHeroMoved = function (eventData) {
-    this.correctPosition(eventData.obj, eventData.fromPosition);
+    this.correctPosition(eventData.obj);
   }
 
   this.onBallMoved = function (eventData) {
@@ -62,9 +62,9 @@ var Field = function() {
     }
   }
 
-  this.correctPosition = function (obj, fromPosition) {
+  this.correctPosition = function (obj) {
     if (obj.position.x < 0 || obj.position.x + obj.width > this.width) {
-      obj.moveTo(fromPosition.x, fromPosition.y);
+      obj.moveTo(obj.position.x < 0 ? 0 : this.width - obj.width, obj.position.y);
     }
   }
 
