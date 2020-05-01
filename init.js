@@ -10,9 +10,9 @@ function start() {
   document.getElementById('start').style.display = 'none';
   asafonov.settings.sfx = document.querySelector('#start input[name=sfx]').checked;
   asafonov.settings.sfx && (new Audio('sound/explosion.mp3')).play();
+  window.view.field.setHero(new Subject());
   var ball = new Ball();
   window.view.field.setBall(ball);
-  window.view.field.setHero(new Subject());
   var levels = new Levels(window.view.field);
   window.view.field.setObjectMap(levels.getRandom());
 }

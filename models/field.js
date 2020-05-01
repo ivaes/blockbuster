@@ -128,7 +128,7 @@ var Field = function() {
       return;
     }
 
-    if (obj.position.y == this.height - 1 && obj.position.x >= _hero.position.x && obj.position.x <= _hero.position.x + _hero.width - 1) {
+    if (obj.position.y >= this.height - 1 && obj.position.x >= _hero.position.x && obj.position.x <= _hero.position.x + _hero.width - 1) {
       var wallType = Ball.HORIZONTAL_WALL;
 
       if ((_hero.position.x == obj.position.x && obj.direction == Ball.DIRECTION_DOWNRIGHT)
