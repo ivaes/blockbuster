@@ -4,15 +4,19 @@ var FieldView = function() {
   this.itemWidth;
   this.itemHeight;
   this.field;
+  this.element;
+  this.alertElement;
   this.heroMoveInterval;
   this.onKeyDownProxy = this.onKeyDown.bind(this);
   this.onTouchProxy = this.onTouch.bind(this);
+  this.hideAlertProxy = this.hideAlert.bind(this);
   this.objectCollisionSound = new Audio('sound/explosion.mp3');
 }
 
 FieldView.prototype.init = function() {
   this.addEventListeners();
   this.initView();
+  this.initAlerts();
 }
 
 FieldView.prototype.addEventListeners = function() {
@@ -22,6 +26,7 @@ FieldView.prototype.addEventListeners = function() {
   asafonov.messageBus.subscribe(asafonov.events.OBJECT_COLLISION, this, 'onObjectCollision');
   asafonov.messageBus.subscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
   asafonov.messageBus.subscribe(asafonov.events.GAME_WON, this, 'onGameWon');
+  asafonov.messageBus.subscribe(asafonov.events.BONUS_APPLIED, this, 'onBonusApplied');
   window.addEventListener('keydown', this.onKeyDownProxy);
   window.addEventListener('touchstart', this.onTouchProxy);
 }
@@ -48,10 +53,21 @@ FieldView.prototype.onGameWon = function() {
   this.alert("You won");
 }
 
-FieldView.prototype.alert = function (msg, type) {
-  alert(msg);
-  this.destroy();
-  window.location.reload();
+FieldView.prototype.alert = function (msg) {
+  this.alertElement.innerHTML = msg;
+  this.alertElement.style.display = 'block';
+  setTimeout(this.hideAlertProxy, 3000);
+}
+
+FieldView.prototype.hideAlert = function() {
+  this.alertElement.style.display = 'none';
+}
+
+FieldView.prototype.initAlerts = function() {
+  this.alertElement = document.createElement('div');
+  this.alertElement.className = 'alert';
+  document.body.appendChild(this.alertElement);
+  this.hideAlert();
 }
 
 FieldView.prototype.onObjectAdded = function (eventData) {
@@ -88,6 +104,10 @@ FieldView.prototype.onBallAdded = function (eventData) {
   this.ballView = new BallView();
   this.ballView.setSize(this.itemWidth, this.itemHeight);
   this.element.appendChild(this.ballView.element);
+}
+
+FieldView.prototype.onBonusApplied = function (eventData) {
+  this.alert(eventData.message);
 }
 
 FieldView.prototype.onKeyDown = function (e) {
