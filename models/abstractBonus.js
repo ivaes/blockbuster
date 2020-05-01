@@ -1,6 +1,6 @@
 class AbstractBonus {
   constructor (hero, obj) {
-    this.timeout = 15000;
+    this.timeout = 20000;
     this.hero = hero;
     this.obj = obj
     this.reverseProxy = this.reverse.bind(this);
@@ -12,6 +12,7 @@ class AbstractBonus {
 
   // stub for override
   apply() {
+    asafonov.messageBus.send(asafonov.events.BONUS_APPLIED, {message: this.getMessage()});
     setTimeout(this.reverseProxy, this.timeout);
   }
 

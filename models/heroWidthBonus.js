@@ -5,7 +5,7 @@ class HeroWidthBonus extends AbstractBonus {
   }
 
   getMessage() {
-    return "";
+    return "Your width has changed";
   }
 
   apply() {

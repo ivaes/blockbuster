@@ -10,10 +10,12 @@ window.asafonov.events = {
   BALL_MOVED: 'ballMoved',
   BALL_CHANGED_DIRECTION: 'ballChangedDirection',
   GAME_WON: 'gameWon',
-  GAME_LOST: 'gameLost'
+  GAME_LOST: 'gameLost',
+  BONUS_APPLIED: 'bonusApplied'
 };
-window.asafonov.bonuses = [HeroWidthBonus],
+window.asafonov.bonuses = [HeroWidthBonus, HeroSpeedBonus, BallSpeedBonus],
 window.asafonov.settings = {
   sfx: false,
-  heroWidth: 5
+  heroWidth: 5,
+  ballSpeed: 1/2
 }

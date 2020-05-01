@@ -1,22 +1,23 @@
 var Subject = function() {
   this.position = new Point(0, 0);
   this.width = asafonov.settings.heroWidth;
+  this.speed = 1;
 }
 
 Subject.prototype.moveLeft = function() {
-  this.move(new Point(-1 ,0));
+  this.move(new Point(-1 * this.speed ,0));
 }
 
 Subject.prototype.moveRight = function() {
-  this.move(new Point(1, 0));
+  this.move(new Point(1 * this.speed, 0));
 }
 
 Subject.prototype.moveUp = function() {
-  this.move(new Point(0, -1));
+  this.move(new Point(0, -1 * this.speed));
 }
 
 Subject.prototype.moveDown = function() {
-  this.move(new Point(0, 1));
+  this.move(new Point(0, 1 * this.speed));
 }
 
 Subject.prototype.move = function (delta) {
