@@ -46,11 +46,12 @@ FieldView.prototype.initSize = function() {
 }
 
 FieldView.prototype.onGameLost = function() {
-  this.alert("You lost");
+  document.querySelector('#gameover').style.display = 'block';
+  document.querySelector('#gameover button').focus();
 }
 
 FieldView.prototype.onGameWon = function() {
-  this.alert("You won");
+  this.onGameLost();
 }
 
 FieldView.prototype.alert = function (msg) {

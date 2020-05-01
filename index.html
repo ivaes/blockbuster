@@ -34,7 +34,7 @@ div {
   border-radius: 12px;
   box-shadow: 10px 10px 10px black;
 }
-#start {
+.info {
   width: 60%;
   height: 60%;
   background-color: #660000;
@@ -48,7 +48,7 @@ div {
   color: white;
   text-align: center;
 }
-#start button {
+.info button {
   font-size: 24px;
   background-color: #006600;
   border: 1px solid black;
@@ -56,6 +56,9 @@ div {
   border-radius: 12px;
   padding: 12px;
   color: white;  
+}
+#gameover {
+  display: none;
 }
 #hero {
   background-color: #006600;
@@ -89,10 +92,14 @@ div {
 </head>
 <body>
 <div id="field"></div>
-<div id="start">
+<div id="start" class="info">
   <h1>Arkanoid</h1>
   <p><label><input name="sfx" type="checkbox"> Sound</label></p>
   <p><button onclick="start()">Start</button></p>
-<div>
+</div>
+<div id="gameover" class="info">
+  <h1>Game over</h1>
+  <p><button onclick="location.reload()">New game</button></p>
+</div>
 <script src="game.js"></script>
 </body>
