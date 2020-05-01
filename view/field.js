@@ -11,6 +11,7 @@ var FieldView = function() {
   this.onTouchProxy = this.onTouch.bind(this);
   this.hideAlertProxy = this.hideAlert.bind(this);
   this.objectCollisionSound = new Audio('sound/explosion.mp3');
+  this.bonusSound = new Audio('sound/bonus.mp3');
 }
 
 FieldView.prototype.init = function() {
@@ -109,6 +110,7 @@ FieldView.prototype.onBallAdded = function (eventData) {
 
 FieldView.prototype.onBonusApplied = function (eventData) {
   this.alert(eventData.message);
+  asafonov.settings.sfx && this.bonusSound.play();
 }
 
 FieldView.prototype.onKeyDown = function (e) {

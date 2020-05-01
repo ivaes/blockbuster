@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function start() {
   document.getElementById('start').style.display = 'none';
   asafonov.settings.sfx = document.querySelector('#start input[name=sfx]').checked;
-  asafonov.settings.sfx && (new Audio('sound/explosion.mp3')).play();
+  asafonov.settings.sfx && (new Audio('sound/ball.mp3')).play();
   window.view.field.setHero(new Subject());
   var ball = new Ball();
   window.view.field.setBall(ball);
