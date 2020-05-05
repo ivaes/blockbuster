@@ -1,6 +1,6 @@
-var Field = function() {
-  this.width = 40;
-  this.height = 30;
+var Field = function (width, height) {
+  this.width = width || 40;
+  this.height = height || 30;
   var _objects = [];
   var _objectsCount = 0;
   var _hero = null;

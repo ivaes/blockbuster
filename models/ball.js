@@ -1,7 +1,7 @@
 var Ball = function() {
   this.position = new Point(0, 0);
   this.direction = Math.random() > 0.5 ? Ball.DIRECTION_UPRIGHT : Ball.DIRECTION_UPLEFT;
-  this.angle = 1;
+  this.angle = Math.random() > 0.5 ? 1 : 1/2;
   this.speed = asafonov.settings.ballSpeed;
   this.interval = setInterval(this.move.bind(this), 50);
 }

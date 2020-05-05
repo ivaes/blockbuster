@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
-  var view = new FieldView();
-  view.field = new Field();
-  view.init();
+  const view = new FieldView();
   window.view = view;
   document.querySelector('#start button').focus();
 });
@@ -10,9 +8,12 @@ function start() {
   document.getElementById('start').style.display = 'none';
   asafonov.settings.sfx = document.querySelector('#start input[name=sfx]').checked;
   asafonov.settings.sfx && (new Audio('sound/ball.mp3')).play();
+  const size = document.querySelector('#start select[name=size]').value.split('x');
+  window.view.field = new Field(size[0], size[1]);
+  window.view.init();
   window.view.field.setHero(new Subject());
-  var ball = new Ball();
+  const ball = new Ball();
   window.view.field.setBall(ball);
-  var levels = new Levels(window.view.field);
+  const levels = new Levels(window.view.field);
   window.view.field.setObjectMap(levels.getRandom());
 }

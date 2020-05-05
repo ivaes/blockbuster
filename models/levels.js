@@ -6,7 +6,7 @@ var Levels = function (field) {
 Levels.prototype.init = function (field) {
   var objectMap = [];
   var iwidth = field.width / 2;
-  var iheight = 10;
+  var iheight = parseInt(field.height / 2);
 
   for (var i = 0; i < iheight; ++i) {
     for (var j = 0; j < field.width; ++j) {
