@@ -105,7 +105,7 @@ var Field = function (width, height) {
   }
 
   this.applyBonuses = function (obj) {
-    if (Math.random() < 0.2) {
+    if (Math.random() < 0.1) {
       var index = parseInt(asafonov.bonuses.length * Math.random(), 10);
       var bonus = new asafonov.bonuses[index](_hero, obj);
       bonus.apply();
