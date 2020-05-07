@@ -1,7 +1,7 @@
 class BallSpeedBonus extends AbstractBonus {
   constructor (hero, obj) {
     super(hero, obj);
-    this.speed = Math.random() < 0.5 ? asafonov.settings.ballSpeed * 1/2 : asafonov.settings.ballSpeed * 2;
+    this.speed = Math.random() < 0.5 ? asafonov.settings.ballSpeed * 3/4 : asafonov.settings.ballSpeed * 1.5;
   }
 
   getMessage() {
