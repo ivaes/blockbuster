@@ -49,12 +49,17 @@ class FieldView {
   }
 
   onGameLost() {
-    document.querySelector('#gameover').style.display = 'block';
-    document.querySelector('#gameover button').focus();
+    this.gameOver("You Lost :(");
   }
 
   onGameWon() {
-    this.onGameLost();
+    this.gameOver("You Won!");
+  }
+
+  gameOver (msg) {
+    document.querySelector('#gameover').style.display = 'block';
+    document.querySelector('#gameover h1').innerHTML = msg || 'Game Over';
+    document.querySelector('#gameover button').focus();
   }
 
   alert (msg) {
