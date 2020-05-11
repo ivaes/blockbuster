@@ -8,7 +8,6 @@ class Ball {
     this.interval = setInterval(this.move.bind(this), 50);
   }
 
-
   moveByDelta (delta) {
     this.moveTo(this.position.x + delta.x, this.position.y + delta.y);
   }

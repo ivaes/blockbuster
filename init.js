@@ -11,9 +11,12 @@ function start() {
   const size = document.querySelector('#start select[name=size]').value.split('x');
   window.view.field = new Field(size[0], size[1]);
   window.view.init();
-  window.view.field.setHero(new Subject());
+  const hero = new Subject();
+  window.view.field.setHero(hero);
   const ball = new Ball();
   window.view.field.setBall(ball);
   const levels = new Levels(window.view.field);
   window.view.field.setObjectMap(levels.getRandom());
+  const score = new Score(hero, ball);
+  const scoreView = new ScoreView();
 }
