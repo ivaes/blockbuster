@@ -12,7 +12,8 @@ window.asafonov.events = {
   GAME_WON: 'gameWon',
   GAME_LOST: 'gameLost',
   BONUS_APPLIED: 'bonusApplied',
-  SCORES_UPDATED: 'scoresUpdated'
+  SCORES_UPDATED: 'scoresUpdated',
+  NEW_HIGHSCORE: 'newHighscore'
 };
 window.asafonov.bonuses = [HeroWidthBonus, HeroSpeedBonus, BallSpeedBonus],
 window.asafonov.settings = {

@@ -17,6 +17,6 @@ function start() {
   window.view.field.setBall(ball);
   const levels = new Levels(window.view.field);
   window.view.field.setObjectMap(levels.getRandom());
-  const score = new Score(hero, ball);
+  asafonov.score = new Score(hero, ball);
   const scoreView = new ScoreView();
 }

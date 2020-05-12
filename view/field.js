@@ -30,6 +30,7 @@ class FieldView {
     asafonov.messageBus.subscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
     asafonov.messageBus.subscribe(asafonov.events.GAME_WON, this, 'onGameWon');
     asafonov.messageBus.subscribe(asafonov.events.BONUS_APPLIED, this, 'onBonusApplied');
+    asafonov.messageBus.subscribe(asafonov.events.NEW_HIGHSCORE, this, 'onNewHighscore');
     window.addEventListener('keydown', this.onKeyDownProxy);
     window.addEventListener('touchstart', this.onTouchProxy);
   }
@@ -60,6 +61,13 @@ class FieldView {
     document.querySelector('#gameover').style.display = 'block';
     document.querySelector('#gameover h1').innerHTML = msg || 'Game Over';
     document.querySelector('#gameover button').focus();
+    const isNewHighScore = asafonov.score.isNewHighScore();
+    document.querySelector('#gameover #highscore').style.display = isNewHighScore ? 'block' : 'none';
+    isNewHighScore && asafonov.score.updateHighScore() && (document.querySelector('#highscore span').innerHTML = asafonov.score.scores);
+  }
+
+  onNewHighscore() {
+    this.alert("New HighScore!");
   }
 
   alert (msg) {
@@ -155,6 +163,8 @@ class FieldView {
     asafonov.messageBus.unsubscribe(asafonov.events.OBJECT_COLLISION, this, 'onObjectCollision');
     asafonov.messageBus.unsubscribe(asafonov.events.GAME_LOST, this, 'onGameLost');
     asafonov.messageBus.unsubscribe(asafonov.events.GAME_WON, this, 'onGameWon');
+    asafonov.messageBus.unsubscribe(asafonov.events.BONUS_APPLIED, this, 'onBonusApplied');
+    asafonov.messageBus.unsubscribe(asafonov.events.NEW_HIGHSCORE, this, 'onNewHighscore');
     window.removeEventListener('keydown', this.onKeyDownProxy);
     window.removeEventListener('touchstart', this.onTouchProxy);
   }

@@ -102,6 +102,14 @@ div {
   background-color: #444;
   opacity: 0.9;
 }
+#highscore {
+  font-size: 2.5vw;
+  color: red;
+}
+#highscore span {
+  font-size: 3vw;
+  font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -114,6 +122,7 @@ div {
 </div>
 <div id="gameover" class="info">
   <h1></h1>
+  <p id="highscore">New High Score: <span></span></p>
   <p><button onclick="location.reload()">New game</button></p>
 </div>
 <audio preload="auto">
