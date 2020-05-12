@@ -68,6 +68,7 @@ class FieldView {
 
   onNewHighscore() {
     this.alert("New HighScore!");
+    asafonov.settings.sfx && this.bonusSound.play();
   }
 
   alert (msg) {

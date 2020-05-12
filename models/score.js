@@ -12,7 +12,7 @@ class Score {
   onObjectCollision (eventData) {
     this.scores += parseInt(Score.BASE_SCORE / (++eventData.type) * this.ball.angle * this.ball.speed * this.hero.speed * (this.hero.width < asafonov.settings.heroWidth ? 2 : 1) * (this.hero.width > asafonov.settings.heroWidth ? 1/2 : 1), 10);
     asafonov.messageBus.send(asafonov.events.SCORES_UPDATED, {scores: this.scores});
-    this.isNewHighScore() && ! this.highscoreReported && (this.highscoreReported = true) && asafonov.messageBus.send(asafonov.events.NEW_HIGHSCORE, {highscore: this.scores});
+    this.highscore > 0 && this.isNewHighScore() && ! this.highscoreReported && (this.highscoreReported = true) && asafonov.messageBus.send(asafonov.events.NEW_HIGHSCORE, {highscore: this.scores});
   }
 
   getHighScore() {
