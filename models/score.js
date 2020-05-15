@@ -24,6 +24,11 @@ class Score {
     return true;
   }
 
+  processGameWon() {
+    this.scores *= 2;
+    asafonov.messageBus.send(asafonov.events.SCORES_UPDATED, {scores: this.scores});
+  }
+
   isNewHighScore() {
     return this.scores > this.highscore;
   }

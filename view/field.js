@@ -54,6 +54,7 @@ class FieldView {
   }
 
   onGameWon() {
+    asafonov.score.processGameWon();
     this.gameOver("You Won!");
   }
 
