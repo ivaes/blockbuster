@@ -322,8 +322,14 @@ input[type=checkbox]:checked + .sound_label_ico span i {
   border: var(--size_00) solid var(--c_green2);
   padding: var(--size_0) var(--size_1);
   outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  -webkit-focus-ring-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-focus-ring-color: transparent;
+}
+
+.info button:hover,
+.info button:active {
+                      background-color: var(--c_green2);
+                      border-color: var(--c_green1);
 }
 
 #gameover {
