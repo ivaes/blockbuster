@@ -60,7 +60,7 @@ class FieldView {
 
   gameOver (msg) {
     document.querySelector('#gameover').style.display = 'block';
-    document.querySelector('#gameover h1').innerHTML = msg || 'Game Over';
+    document.querySelector('#gameover .status').innerHTML = msg || 'Game Over';
     document.querySelector('#gameover button').focus();
     const isNewHighScore = asafonov.score.isNewHighScore();
     document.querySelector('#gameover #highscore').style.display = isNewHighScore ? 'block' : 'none';

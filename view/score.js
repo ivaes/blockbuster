@@ -1,10 +1,7 @@
 class ScoreView {
 
   constructor() {
-    this.element = document.createElement('div');
-    this.element.className = 'scores';
-    document.body.appendChild(this.element);
-    this.displayScore(0);
+    this.element = document.querySelector('div.scores span');
     asafonov.messageBus.subscribe(asafonov.events.SCORES_UPDATED, this, 'onScoresUpdated');
   }
 
@@ -13,7 +10,7 @@ class ScoreView {
   }
 
   displayScore (score) {
-    this.element.innerHTML = 'Score: ' + score;
+    this.element.innerHTML = score;
   }
 
 }
