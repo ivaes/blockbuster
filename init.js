@@ -3,7 +3,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
   window.view = view;
   document.querySelector('#start button').focus();
   document.querySelector('input[name=sfx]').checked = window.localStorage.getItem('sfx') == "false" ? false : true;
-  window.localStorage.getItem('size') && (document.querySelector('input[name=size]:checked').value = window.localStorage.getItem('size'));
+  const size = window.localStorage.getItem('size');
+
+  if (size) {
+    const sizes = document.querySelectorAll('input[name=size]');
+
+    for (let i = 0; i < sizes.length; ++i) {
+      sizes[i].value == size && (sizes[i].checked = true);
+    }
+  }
 });
 
 function start() {
