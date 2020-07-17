@@ -42,8 +42,8 @@ class FieldView {
   }
 
   initSize() {
-    this.width = document.documentElement.offsetWidth;
-    this.height = document.documentElement.offsetHeight;
+    this.width = this.element.offsetWidth;
+    this.height = this.element.offsetHeight;
     this.itemWidth = this.width / this.field.width;
     this.itemHeight = this.height / this.field.height;
     this.heroView.setSize(this.itemWidth, this.itemHeight);
@@ -142,7 +142,7 @@ class FieldView {
     e.preventDefault();
     var x = e.touches[e.touches.length - 1].clientX;
 
-    if (x < document.documentElement.offsetWidth / 2) {
+    if (x < this.element.offsetWidth / 2) {
       this.startHeroMoving('moveLeft');
     } else {
       this.startHeroMoving('moveRight');

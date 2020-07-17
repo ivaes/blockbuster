@@ -139,8 +139,9 @@ div {
 #field {
     background-color: #536878;
     width: 100%;
-    height: 100%;
+    height: calc(100% - var(--size_3));
     overflow: hidden;
+    margin-top: var(--size_3);
 }
 
 .scores {
