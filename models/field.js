@@ -163,7 +163,23 @@ class Field {
       obj.changeDirection(Ball.HORIZONTAL_WALL);
       obj.move();
     } else if (obj.position.y > this.height - 1) {
-      obj.destroy();
+      asafonov.messageBus.send(asafonov.events.GAME_LOST, {});
     }
+  }
+
+  destroy() {
+    this.hero.destroy();
+    this.hero  = null;
+    this.ball.destroy();
+    this.ball = null;
+    asafonov.messageBus.unsubscribe(asafonov.events.FIELD_HERO_MOVED, this, 'onHeroMoved');
+    asafonov.messageBus.unsubscribe(asafonov.events.BALL_MOVED, this, 'onBallMoved');
+
+    for (var i = 0; i < this.objects.length; ++i) {
+      this.objects[i] = null;
+    }
+
+    this.objects.length = 0;
+    console.log("Field destroy");
   }
 }

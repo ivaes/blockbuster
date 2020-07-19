@@ -47,7 +47,7 @@ class Ball {
 
   destroy() {
     clearInterval(this.interval);
-    asafonov.messageBus.send(asafonov.events.GAME_LOST, {});
+    console.log("Ball destroy");
   }
 }
 

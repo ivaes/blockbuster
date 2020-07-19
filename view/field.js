@@ -65,6 +65,7 @@ class FieldView {
     const isNewHighScore = asafonov.score.isNewHighScore();
     document.querySelector('#gameover #highscore').style.display = isNewHighScore ? 'block' : 'none';
     isNewHighScore && asafonov.score.updateHighScore() && (document.querySelector('#highscore span').innerHTML = asafonov.score.scores);
+    this.destroy();
   }
 
   onNewHighscore() {
@@ -159,6 +160,16 @@ class FieldView {
   }
 
   destroy() {
+    if (this.heroMoveInterval) {
+      clearInterval(this.heroMoveInterval);
+    }
+
+    this.heroView.destroy();
+    this.ballView.destroy();
+    this.field.destroy();
+    this.heroView = null;
+    this.ballView = null;
+    this.field = null;
     asafonov.messageBus.unsubscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onHeroAdded');
     asafonov.messageBus.unsubscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onBallAdded');
     asafonov.messageBus.unsubscribe(asafonov.events.OBJECT_ADDED, this, 'onObjectAdded');
@@ -169,5 +180,6 @@ class FieldView {
     asafonov.messageBus.unsubscribe(asafonov.events.NEW_HIGHSCORE, this, 'onNewHighscore');
     window.removeEventListener('keydown', this.onKeyDownProxy);
     window.removeEventListener('touchstart', this.onTouchProxy);
+    console.log("FieldView destroy");
   }
 }

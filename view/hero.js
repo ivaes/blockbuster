@@ -42,4 +42,11 @@ class HeroView {
       this.updateWidth();
     }
   }
+
+  destroy() {
+    asafonov.messageBus.unsubscribe(asafonov.events.FIELD_HERO_ADDED, this, 'onHeroAdded');
+    asafonov.messageBus.unsubscribe(asafonov.events.FIELD_HERO_MOVED, this, 'onHeroMoved');
+    asafonov.messageBus.unsubscribe(asafonov.events.HERO_WIDTH_CHANGED, this, 'onHeroWidthChanged');
+    console.log("HeroView destroy");
+  }
 }

@@ -27,4 +27,14 @@ class BallView {
   onBallChangedDirection() {
     this.ballChangedDirectionSound.play();
   }
+
+  destroy() {
+    asafonov.messageBus.unsubscribe(asafonov.events.BALL_MOVED, this, 'onBallMoved');
+
+    if (asafonov.settings.sfx) {
+      asafonov.messageBus.unsubscribe(asafonov.events.BALL_CHANGED_DIRECTION, this, 'onBallChangedDirection');
+    }
+
+    console.log("BallView destroy");
+  }
 }

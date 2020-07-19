@@ -37,4 +37,8 @@ class Subject {
     this.width = width;
     asafonov.messageBus.send(asafonov.events.HERO_WIDTH_CHANGED, {obj: this});
   }
+
+  destroy() {
+    console.log("Hero destroy");
+  }
 }
